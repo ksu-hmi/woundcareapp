@@ -39,4 +39,24 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
-python3 -m py_compile app.py
+from flask import Flask, request, render_template, jsonify
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file:
+            # Simulate file processing
+            return jsonify({
+                "filename": file.filename,
+                "wound_stage": "Stage 2",
+                "recommendation": "Clean with saline and apply a hydrocolloid dressing."
+            })
+    return render_template('index.html')
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
